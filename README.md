@@ -1,5 +1,6 @@
-# Your project name
-Your name or CVTC username
+# Fantasy Bank
+Your name or CVTC username:
+jzarins2
 
-Your project description
-
+Your project description:
+Fantasy Bank will allow users to create and store their own characters, items, and abilities.
