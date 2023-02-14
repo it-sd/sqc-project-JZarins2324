@@ -1,4 +1,6 @@
 # Fantasy Bank
+Fantasy Bank offers users a platform to create and store their own or previously existing characters, items, and abilities.  It will also allow users to edit the information for their own entries.
+
 ## Web service
 [apilayer pdflayer](https://pdflayer.com/) API Key
 
