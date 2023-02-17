@@ -1,10 +1,12 @@
-/*
 body {
     background: #08F;
 }
 
-*/
 header h1 {
+    text-align: center;
+}
+
+h2 {
     text-align: center;
 }
 
@@ -12,20 +14,33 @@ nav {
     text-align: center;
 }
 
-nav ul li {
+nav > ul > li {
     list-style-type: none;
     text-decoration: none;
-    /* color: #FDA; */
+    color: #FDA;
     margin-left: 10px;
     margin-right: 10px;
     display: inline;
 }
 
+nav > ul > li > a {
+    text-decoration: none;
+    color: #FDA;
+}
+
 main {
+    overflow: hidden;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    /* background-color: #FDA; */
+    background-color: #FDA;
+    padding: 10px 10px 10px 10px;
+    border-radius: 6px;
+}
+
+main a {
+    text-decoration: none;
+    color: #08F;
 }
 
 #info {
@@ -35,4 +50,10 @@ main {
 #bodyImg {
     float: right;
     display: inline;
+}
+
+a:hover {
+    text-decoration: underline;
+    background-color: black;
+    padding: 2px 2px 2px 2px;
 }
