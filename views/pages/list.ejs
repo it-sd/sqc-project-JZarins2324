@@ -1,0 +1,28 @@
+<%- include('../shared/header.ejs') %>
+
+  <main>
+    <h2><a href="/list">List of Entries</a></h2>
+    <h3>Categories:</h3>
+      <ul>
+        <li><a href="/list/character">Character</a></li>
+        <li><a href="/list/item">Item</a></li>
+        <li><a href="/list/ability">Ability</a></li>
+      </ul>
+    <h3>Entries</h3>
+      <ul>
+        <%_ for (const entry of characters) { _%>
+          <li><a href="/view/character/<%= entry.id %>"><%= entry.name %></a>: <%= entry.info %></li>
+        <%_ } _%>
+        <%_ for (const entry of items) { _%>
+          <li><a href="/view/item/<%= entry.id %>"><%= entry.name %></a>: <%= entry.info %></li>
+        <%_ } _%>
+        <%_ for (const entry of abilities) { _%>
+          <li><a href="/view/ability/<%= entry.id %>"><%= entry.name %></a>: <%= entry.info %></li>
+        <%_ } _%>
+        <%_ for (const entry of entries) { _%>
+          <li><a href="/view/<%= table %>/<%= entry.id %>"><%= entry.name %></a>: <%= entry.info %></li>
+        <%_ } _%>
+    </ul>
+  </main>
+</body>
+</html>
