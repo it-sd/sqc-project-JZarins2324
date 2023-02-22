@@ -1,8 +1,114 @@
 <%- include('../shared/header.ejs') %>
 
   <main>
-    <h2>Create New Entry</h2>
-    <p>This is where the form will go</p>
+    <h2>Create New...</h2>
+    <div id="entrySelection">
+      <label>Character:</label>
+      <input id="char" type="radio" name="select" onchange="updateForm('character')">
+      <label>Item:</label>
+      <input id="item" type="radio" name="select" onchange="updateForm('item')">
+      <label>Ability:</label>
+      <input id="abil" type="radio" name="select" onchange="updateForm('ability')">
+    </div>
+    <div id="form">
+      <h3 id="entryType"></h3>
+      <label>Name:</label><br>
+      <input id="name" placeholder="Entry Name" type="text"><br>
+      <label id="descLabel">Description:</label><br id="descBr">
+      <textarea id="desc" rows="5" cols="75" placeholder="Entry Description"></textarea><br>
+      <label>Information:</label><br>
+      <textarea id="info" rows="5" cols="75" placeholder="Entry Information"></textarea><br>
+      <label for="abilities">Choose an Ability:</label><br>
+      
+      <select name="abilities" id="abilList">
+        <%_ for (const ability of abilities) { _%>
+        <option value="<%= ability.id %>"><%= ability.name %></option>
+        <%_ } _%>
+      </select><br>
+
+      <label>Image:</label><br>
+      <input id="img" type="file"><br><br>
+
+      <button id="submit" disabled>Entry not yet valid</button>
+      <h1 id="out"></h1>
+    </div>
   </main>
+  <script>
+console.log(document.querySelector('#abilList').value)
+
+    document.querySelector('#form').style.visibility = "hidden"
+
+    const output = document.querySelector("#out")
+    const button = document.querySelector("#submit")
+    const eName = document.querySelector("#name")
+    const desc = document.querySelector("#desc")
+    const info = document.querySelector("#info")
+    let entryType
+
+    const updateForm = function (type) {
+      entryType = type
+      document.querySelector('#entryType').innerHTML = "New " + type
+      document.querySelector('#form').style.visibility = "visible"
+      
+      if (type === 'ability') {
+        desc.disabled = true
+        desc.value = ""
+      } else if (desc.disabled === true) {
+        desc.disabled = false
+      }
+
+      updateButton()
+    }
+
+    const updateButton = function () {
+      let isValid = false;
+      if ((entryType === 'ability' && eName.value != "" && info.value != "") || (entryType !== 'ability' && eName.value != "" && desc.value != "" && info.value != "")) {
+        isValid = true
+      }
+
+      button.disabled = !isValid
+      button.innerHTML = isValid ? 'Create New Entry' : 'Entry not yet valid'
+    }
+
+    const submit = async function () {
+      output.innerHTML = 'Please Wait'
+      const data = {
+        name: eName.value,
+        desc: desc.value,
+        info: info.value,
+        ability: document.querySelector('#abilList').value,
+        //image:
+        type: entryType
+      }
+      
+      const response = await fetch('/createEntry', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+
+      if (response.ok) {
+        const result = await response.json()
+        if (result.ok) {
+          output.innerHTML = 'Thank you for your contibution to Fantasy Bank!'
+          return
+        }
+      }
+
+      output.innerHTML = 'Internal Server Error.  Please try again later.'
+      
+
+    }
+
+    // Add event listeners to the input fields
+    eName.addEventListener('input', (e) => updateButton())
+    desc.addEventListener('input', (e) => updateButton())
+    info.addEventListener('input', (e) => updateButton())
+    button.addEventListener('click', (e) => submit())
+
+  </script>
 </body>
 </html>

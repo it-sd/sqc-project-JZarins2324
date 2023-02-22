@@ -2,12 +2,21 @@ body {
     background: #08F;
 }
 
-header h1 {
+h1, h2, h3 {
     text-align: center;
 }
 
-h2 {
-    text-align: center;
+h1 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 23px;
+}
+
+#cat {
+    margin-left: 10px;
+    text-align: left;
 }
 
 nav {
@@ -26,6 +35,7 @@ nav > ul > li {
 nav > ul > li > a {
     text-decoration: none;
     color: #FDA;
+    font-size: 20px;
 }
 
 main {
@@ -38,22 +48,59 @@ main {
     border-radius: 6px;
 }
 
+main p, main a, main li {
+    font-size: 18px;
+}
+
 main a {
     text-decoration: none;
-    color: #08F;
+    color: blue;
 }
 
 #info {
-    display: inline;
+    overflow: auto;
 }
 
 #bodyImg {
     float: right;
-    display: inline;
+    display: block;
+    overflow: auto;
 }
 
 a:hover {
     text-decoration: underline;
-    background-color: black;
+    background-color: powderblue;
     padding: 2px 2px 2px 2px;
+}
+
+/* Create Form Styles*/
+
+#entrySelection {
+    text-align: center;
+}
+
+#form {
+    /*margin: 10px 300px 20px 300px;*/
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid black;
+    border-radius: 7px;
+    padding: 5px 5px 5px 5px;
+}
+
+input[type=text] {
+    width: 250px;
+    height: 25px;
+}
+
+button {
+    height: 25;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 a {
+    font-size: 26px;
 }
