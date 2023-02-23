@@ -166,6 +166,7 @@
     "rimraf": "^3.0.2",
     "run-parallel": "^1.2.0",
     "safe-regex-test": "^1.0.0",
+    "selenium-webdriver": "^4.8.1",
     "semver": "^6.3.0",
     "shebang-command": "^2.0.0",
     "shebang-regex": "^3.0.0",

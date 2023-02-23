@@ -53,8 +53,10 @@ console.log(document.querySelector('#abilList').value)
       if (type === 'ability') {
         desc.disabled = true
         desc.value = ""
+        document.querySelector('#abilList').disabled = true
       } else if (desc.disabled === true) {
         desc.disabled = false
+        document.querySelector('#abilList').disabled = false
       }
 
       updateButton()
@@ -99,8 +101,6 @@ console.log(document.querySelector('#abilList').value)
       }
 
       output.innerHTML = 'Internal Server Error.  Please try again later.'
-      
-
     }
 
     // Add event listeners to the input fields

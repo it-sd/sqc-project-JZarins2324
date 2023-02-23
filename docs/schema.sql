@@ -28,14 +28,13 @@ CREATE TABLE ability (
   image TEXT
 );
 
-INSERT INTO character (name, descrip, info)
+INSERT INTO character (name, descrip, info, ability)
   VALUES
-  ('Jacob Zarins', 'Coolest College Student', 'Currently working on his Software Developer Associates Degree'),
-  ('Jake Zarins', 'Lamest College Student', 'The less cool Jacob Zarins');
+  ('Jacob Zarins', 'Coolest College Student', 'Currently working on his Software Developer Associates Degree', 1);
 
-INSERT INTO item (name, descrip, info)
+INSERT INTO item (name, descrip, info, ability)
   VALUES
-  ('Textbook', 'A shiny textbook', 'A required textbook for a specific course');
+  ('Textbook', 'A shiny textbook', 'A required textbook for a specific course', 2);
 
 INSERT INTO ability (name, info)
   VALUES

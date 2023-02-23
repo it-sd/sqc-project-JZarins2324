@@ -96,13 +96,50 @@ express()
 
     res.render('pages/list', data)
   })
-  .get('/create', function (req, res) {
-    res.render('pages/create')
+  .get('/create', async function (req, res) {
+    const abilities = await queryAllTypeEntries('ability')
+    const entries = {
+      abilities: abilities.entries
+    }
+    res.render('pages/create', entries)
+  })
+  .post('/createEntry', async function (req, res) {
+    res.set({ 'Content-Type': 'application/json' })
+
+    try {
+      const client = await pool.connect()
+      const name = req.body.name
+      const desc = req.body.desc
+      const info = req.body.info
+      const ability = req.body.ability
+      const table = req.body.type
+
+      let insertSql
+      if (table === 'ability') {
+        insertSql = `INSERT INTO ability (name, info) 
+          VALUES ('${name}', '${info}');`
+      } else if (table !== 'ability') {
+        insertSql = `INSERT INTO ${table} (name, descrip, info, ability) 
+          VALUES ('${name}', '${desc}', '${info}', '${ability}');`
+      }
+      await client.query(insertSql)
+
+      res.json({ ok: true })
+      client.release()
+    } catch (err) {
+      console.error(err)
+      res.json({error: err})
+    }
+
   })
   .get('/view/:table/:id', async function (req, res) {
     const entData = await queryViewEntry(req.params.table, req.params.id)
+    
     if (req.params.table === 'ability') {
       entData.descrip = ''
+      entData.ability = ''
+    } else {
+      entData.ability = await queryViewEntry('ability', entData.ability)
     }
 
     res.setHeader('Content-Security-Policy', "script-src 'self' 'unsafe-inline'")
