@@ -52,7 +52,52 @@ describe('fantasy bank server', function () {
     it('should return a single entry from a table based on id', async function () {
       const result = await queryViewEntry('character', 1)
       expect(result).toBeDefined()
-      expect(result).toEqual({ id: 1, name: 'Jacob Zarins', descrip: 'Coolest College Student', info: 'Currently working on his Software Developer Associates Degree', image: null, ability: null })
+      expect(result).toEqual({ id: 1, name: 'Jacob Zarins', descrip: 'Coolest College Student', info: 'Currently working on his Software Developer Associates Degree', image: null, ability: 1 })
+    })
+  })
+
+  describe("POST '/createEntry'", function () {
+    const url = new URL('/createEntry', baseUrl)
+    it('should accept the user\'s entry into character table', async function () {
+      const data = {
+        name: 'Entry Name',
+        desc: 'Entry Description',
+        info: 'entry Info',
+        ability: 2,
+        type: 'character'
+      }
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+
+      expect(response.ok).toBeTrue()
+    })
+
+    it('should accept the user\'s entry into ability table', async function () {
+      const data = {
+        name: 'Entry Name',
+        desc: 'Entry Description',
+        info: 'Entry Info',
+        ability: 2,
+        type: 'ability'
+      }
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+
+      expect(response.ok).toBeTrue()
     })
   })
 })
