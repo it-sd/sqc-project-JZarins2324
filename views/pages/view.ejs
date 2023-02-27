@@ -3,6 +3,7 @@
     <main>
       <h2><%= name %></h2>
       <h3><a href="javascript:toPDF();">Create PDF</a></h3>
+      <h3><a href="http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1">Create PDF</a></h3>
       <span id="bodyImg">
         <img alt="image of <%= name %>">
         <%_ if (ability !== '') { _%>
@@ -20,10 +21,18 @@
     </main>
     <script>
       const toPDF = async function () {
+        console.log("Called toPDF()")
+        
+        // Call server side route to keep API key hidden from users
         const response = await fetch('/toPDF/<%= table %>/<%= id %>', {
           method: 'POST',
+          header: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json'
+          },
           body: JSON.stringify({})
         })
+        
         if (response.ok) {
           console.log("Nice!")
           const result = await response.json()
@@ -32,7 +41,7 @@
             return
           }
         }
-        console.log("Not good. ;-;")
+        console.log("Not good ;-;")
       }
     </script>
   </body>
