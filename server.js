@@ -153,7 +153,7 @@ express()
     res.render('pages/view', entData)
   })
   .post('/toPDF/:table/:id', async function (req, res) {
-    // Working Request
+    // Working Request from view.ejs:
     // http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1
     //
     // http://api.pdflayer.com/api/convert
