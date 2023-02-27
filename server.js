@@ -40,6 +40,12 @@ const queryViewEntry = async function (table, id) {
   return results.length ? results[0] : []
 }
 
+// From Code Review 6
+const getServerUrl = function (req) {
+  const port = PORT === 80 ? "" : `:${PORT}`
+  return `${req.protocol}://${req.hostname}${port}`
+}
+
 module.exports = {
   query,
   queryAllTypeEntries,
@@ -140,9 +146,28 @@ express()
       entData.ability = ''
     } else {
       entData.ability = await queryViewEntry('ability', entData.ability)
+      entData.table = req.params.table
     }
 
     res.setHeader('Content-Security-Policy', "script-src 'self' 'unsafe-inline'")
     res.render('pages/view', entData)
+  })
+  .post('/toPDF/:table/:id', async function (req, res) {
+    const baseURL = 'http://api.pdflayer.com/api/convert'
+    const docURL = `${getServerUrl(req)}/${req.params.table}/${req.params.id}`
+    const pdfRequest = `${baseURL}?access_key=${process.env.PDF_LAYER_ACCESS_KEY}&document_url=${docURL}&inline=1&test=1`
+
+    const response = await fetch(pdfRequest, {
+      method: 'POST',
+      body: JSON.stringify({})
+    })
+
+    if (response.ok) {
+      res.json({ created: true })
+    } else {
+      res.json({ created: false})
+    }
+
+    console.log(response.ok)
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
