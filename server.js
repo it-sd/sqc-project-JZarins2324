@@ -156,7 +156,9 @@ express()
     //const baseURL = 'http://api.pdflayer.com/api/convert'
     //const docURL = `${getServerUrl(req)}/${req.params.table}/${req.params.id}`
     //const pdfRequest = `${baseURL}?access_key=${process.env.PDF_LAYER_ACCESS_KEY}&document_url=${docURL}&inline=1&test=1`
-    const pdfRequest = `${baseURL}?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://pdflayer.com/documentation&test=1`
+    const pdfRequest = `http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://pdflayer.com/documentation&test=1`
+
+    console.log("PDF Request URL: " + pdfRequest)
 
     const response = await fetch(pdfRequest, {
       method: 'POST',
