@@ -166,30 +166,52 @@ express()
     const docURL = 'https://www.youtube.com/'
     const key = process.env.PDF_LAYER_ACCESS_KEY
     // Combine request values
-    const pdfRequest = `${baseURL}?access_key=${key}&document_url=${docURL}&test=1`
+    const pdfRequest = `${baseURL}?access_key=${key}&document_url=${docURL}&inline=1&test=1`
+
+    res.redirect(`/view/${req.params.table}/${req.params.id}`)
 
     // Display Values in terminal
+    
     console.log("Base URL: " + baseURL)
     console.log("Access Key: " + key)
     console.log("Document URL: " + docURL + "\n")
     console.log("Example Request: http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1")
     console.log("PDF Request URL: " + pdfRequest)
-
+    
     // Make the API request
+    
     const response = await fetch(pdfRequest, {
-      method: 'GET',
+      method: 'POST',
       header: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json'
-      }
+      },
+      body: JSON.stringify({})
     })
-
+    
+    console.log(response)
+    console.log(await response.text())
+    //console.log(response.status)
+    // Try .redirect
+    
     if (response.ok) {
-      res.json({ created: true })
+      //res.json({ created: true })
+      //res.send({ url: response.url})
+      res.send(response.url)
     } else {
       res.json({ created: false})
     }
+    
 
-    console.log(response.ok)
+    //console.log(response.ok)
+  }).
+  get('/PDF/:table/:id', function (req, res) {
+    const baseURL = 'http://api.pdflayer.com/api/convert?'
+    const documentURL = `${getServerUrl(req)}/${req.params.table}/${req.params.id}`
+    console.log(documentURL)
+
+    const pdfRequest = `${baseURL}access_key=${process.env.PDF_LAYER_ACCESS_KEY}&document_url=${documentURL}&inline=1&test=1`
+    console.log(pdfRequest)
+    res.redirect("http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1")
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
