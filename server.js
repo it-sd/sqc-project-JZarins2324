@@ -212,6 +212,6 @@ express()
 
     const pdfRequest = `${baseURL}access_key=${process.env.PDF_LAYER_ACCESS_KEY}&document_url=${documentURL}&inline=1&test=1`
     console.log(pdfRequest)
-    res.redirect("http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1")
+    res.redirect("http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&inline=1&test=1")
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
