@@ -152,7 +152,7 @@ express()
     res.setHeader('Content-Security-Policy', "script-src 'self' 'unsafe-inline'")
     res.render('pages/view', entData)
   })
-  .post('/toPDF/:table/:id', async function (req, res) {
+  .get('/toPDF/:table/:id', async function (req, res) {
     // Working Request from view.ejs:
     // http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1
     //
@@ -166,21 +166,21 @@ express()
     const docURL = 'https://www.youtube.com/'
     const key = process.env.PDF_LAYER_ACCESS_KEY
     // Combine request values
-    const pdfRequest = `${baseURL}?access_key=${key}&document_url=${docURL}&inline=1&test=1`
+    const pdfRequest = `${baseURL}?access_key=${key}&document_url=${docURL}&test=1`
 
-    res.redirect(`/view/${req.params.table}/${req.params.id}`)
+    //res.redirect(`/view/${req.params.table}/${req.params.id}`)
 
     // Display Values in terminal
-    
+    /*
     console.log("Base URL: " + baseURL)
     console.log("Access Key: " + key)
     console.log("Document URL: " + docURL + "\n")
     console.log("Example Request: http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1")
     console.log("PDF Request URL: " + pdfRequest)
-    
+    */
     // Make the API request
-    
-    const response = await fetch(pdfRequest, {
+    //
+    const response = await fetch("http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1", {
       method: 'POST',
       header: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -189,17 +189,22 @@ express()
       body: JSON.stringify({})
     })
     
-    console.log(response)
-    console.log(await response.text())
+    //console.log(response)
+    const resTxt = await response.text()
+    console.log(resTxt)
     //console.log(response.status)
     // Try .redirect
     
     if (response.ok) {
       //res.json({ created: true })
       //res.send({ url: response.url})
-      res.send(response.url)
+      //res.json({ pdfBody: await response.text(), created: true })
+      res.setHeader('Content-disposition', 'inline; filename="pdflayer.pdf"')
+      res.setHeader('Content-Type', 'application/pdf')
+      //res.send(await response.text())
+      res.send(resTxt)
     } else {
-      res.json({ created: false})
+      res.json({ created: false })
     }
     
 
