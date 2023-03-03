@@ -165,8 +165,8 @@ express()
 
     // Declare request values
     const baseURL = 'http://api.pdflayer.com/api/convert'
-    //const docURL = `${getServerUrl(req)}/view/${req.params.table}/${req.params.id}`
-    const docURL = 'https://en.wikipedia.org/wiki/Waddesdon_Bequest'
+    const docURL = `${getServerUrl(req)}/view/${req.params.table}/${req.params.id}`
+    //const docURL = 'https://en.wikipedia.org/wiki/Waddesdon_Bequest'
     const key = process.env.PDF_LAYER_ACCESS_KEY
     // Combine request values
     const pdfRequest = `${baseURL}?access_key=${key}&document_url=${docURL}&test=1`
@@ -194,9 +194,7 @@ express()
     
     //console.log(response)
     const resBuff = await response.arrayBuffer()
-    console.log(resBuff)
     const buf = Buffer.from(resBuff)
-    console.log('\n' + buf)
     //console.log(response.status)
     // Try .redirect
     
