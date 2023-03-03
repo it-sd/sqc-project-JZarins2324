@@ -1,4 +1,6 @@
 require('dotenv').config()
+const { table } = require('console')
+//import { Buffer } from 'node:buffer'
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5163
@@ -163,7 +165,7 @@ express()
 
     // Declare request values
     const baseURL = 'http://api.pdflayer.com/api/convert'
-    const docURL = 'https://www.youtube.com/'
+    const docURL = `${getServerUrl(req)}/view/${req.params.table}/${req.params.id}`
     const key = process.env.PDF_LAYER_ACCESS_KEY
     // Combine request values
     const pdfRequest = `${baseURL}?access_key=${key}&document_url=${docURL}&test=1`
@@ -175,12 +177,12 @@ express()
     console.log("Base URL: " + baseURL)
     console.log("Access Key: " + key)
     console.log("Document URL: " + docURL + "\n")
-    console.log("Example Request: http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1")
+    console.log("Example Request: http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://en.wikipedia.org/wiki/Waddesdon_Bequest&test=1")
     console.log("PDF Request URL: " + pdfRequest)
     */
     // Make the API request
     //
-    const response = await fetch("http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1", {
+    const response = await fetch(pdfRequest, {
       method: 'POST',
       header: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -190,8 +192,10 @@ express()
     })
     
     //console.log(response)
-    const resTxt = await response.text()
-    console.log(resTxt)
+    const resBuff = await response.arrayBuffer()
+    console.log(resBuff)
+    const buf = Buffer.from(resBuff)
+    console.log('\n' + buf)
     //console.log(response.status)
     // Try .redirect
     
@@ -202,7 +206,7 @@ express()
       res.setHeader('Content-disposition', 'inline; filename="pdflayer.pdf"')
       res.setHeader('Content-Type', 'application/pdf')
       //res.send(await response.text())
-      res.send(resTxt)
+      res.send(buf)
     } else {
       res.json({ created: false })
     }
@@ -215,8 +219,8 @@ express()
     const documentURL = `${getServerUrl(req)}/${req.params.table}/${req.params.id}`
     console.log(documentURL)
 
-    const pdfRequest = `${baseURL}access_key=${process.env.PDF_LAYER_ACCESS_KEY}&document_url=${documentURL}&inline=1&test=1`
+    const pdfRequest = `${baseURL}access_key=${process.env.PDF_LAYER_ACCESS_KEY}&document_url=${documentURL}&test=1`
     console.log(pdfRequest)
-    res.redirect("http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&inline=1&test=1")
+    res.redirect("http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1")
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
