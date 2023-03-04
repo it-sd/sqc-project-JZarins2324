@@ -3,10 +3,6 @@
     <main>
       <h2><%= name %></h2>
       <h3><a href="/toPDF/<%= table %>/<%= id %>">Create PDF dynamic</a></h3>
-      <h3><a href="/createPDF">Create PDF fixed</a></h3>
-
-      <h3><a href="http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://en.wikipedia.org/wiki/Cyclone_Dumazile&test=1">Create PDF href</a></h3>
-      <a href="javascript:md5Hash();">Hash</a>
       <span id="bodyImg">
         <img alt="image of <%= name %>">
         <%_ if (ability !== '') { _%>
@@ -23,11 +19,9 @@
       </span>
     </main>
     <script>
-      const toPDF = async function () {
-        console.log("Called toPDF()")
-        
+      /*
+      const toPDF = async function () {        
         // Call server side route to keep API key hidden from users
-        
         const response = await fetch('/toPDF/<%= table %>/<%= id %>', {
           method: 'POST',
           header: {
@@ -36,18 +30,16 @@
           },
           body: JSON.stringify({})
         })
-        
         if (response.ok) {
           console.log("Nice!")
           const result = await response.json()
-          if (result.created) {
-
-            console.log("Mega Nice!")
+          if (!result.created) {
+            console.log("Not good ;-;")
             return
           }
         }
-        console.log("Not good ;-;")
       }
+      */
     </script>
   </body>
 </html>
