@@ -44,8 +44,8 @@ const queryViewEntry = async function (table, id) {
 
 // From Code Review 6
 const getServerUrl = function (req) {
-  const port = PORT === 80 ? "" : `:${PORT}`
-  return `${req.protocol}://${req.hostname}${port}`
+  //const port = PORT === 80 ? "" : `:${PORT}`
+  return `${req.protocol}://${req.hostname}`//${port}`
 }
 
 module.exports = {
