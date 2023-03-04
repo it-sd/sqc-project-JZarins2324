@@ -42,10 +42,8 @@ const queryViewEntry = async function (table, id) {
   return results.length ? results[0] : []
 }
 
-// From Code Review 6
 const getServerUrl = function (req) {
-  //const port = PORT === 80 ? "" : `:${PORT}`
-  return `${req.protocol}://${req.hostname}`//${port}`
+  return `${req.protocol}://${req.hostname}`
 }
 
 module.exports = {
@@ -155,34 +153,23 @@ express()
     res.render('pages/view', entData)
   })
   .get('/toPDF/:table/:id', async function (req, res) {
-    // Working Request from view.ejs:
-    // http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://www.youtube.com/&test=1
-    //
-    // http://api.pdflayer.com/api/convert
-    //   ?access_key=17fac7770f20e102e1728a20df1dbcda
-    //   &document_url=https://www.youtube.com/
-    //   &test=1
-
     // Declare request values
     const baseURL = 'http://api.pdflayer.com/api/convert'
     const docURL = `${getServerUrl(req)}/view/${req.params.table}/${req.params.id}`
-    //const docURL = 'https://en.wikipedia.org/wiki/Waddesdon_Bequest'
     const key = process.env.PDF_LAYER_ACCESS_KEY
     // Combine request values
     const pdfRequest = `${baseURL}?access_key=${key}&document_url=${docURL}&test=1`
 
-    //res.redirect(`/view/${req.params.table}/${req.params.id}`)
-
     // Display Values in terminal
-    
+    /*
     console.log("Base URL: " + baseURL)
     console.log("Access Key: " + key)
     console.log("Document URL: " + docURL + "\n")
     console.log("Example Request: http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://en.wikipedia.org/wiki/Waddesdon_Bequest&test=1")
     console.log("PDF Request URL: " + pdfRequest)
-    
+    */
+
     // Make the API request
-    //
     const response = await fetch(pdfRequest, {
       method: 'POST',
       header: {
@@ -192,40 +179,9 @@ express()
       body: JSON.stringify({})
     })
     
-    //console.log(response)
     const resBuff = await response.arrayBuffer()
     const buf = Buffer.from(resBuff)
-    //console.log(response.status)
-    // Try .redirect
     
-    if (response.ok) {
-      //res.json({ created: true })
-      //res.send({ url: response.url})
-      //res.json({ pdfBody: await response.text(), created: true })
-      res.setHeader('Content-disposition', 'inline; filename="pdflayer.pdf"')
-      res.setHeader('Content-Type', 'application/pdf')
-      //res.send(await response.text())
-      res.send(buf)
-    } else {
-      res.json({ created: false })
-    }
-    
-
-    //console.log(response.ok)
-  }).
-  get('/createPDF', async function (req, res) {
-    const response = await fetch('http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://en.wikipedia.org/wiki/Waddesdon_Bequest&test=1', {
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({})
-    })
-
-    const resBuff = await response.arrayBuffer()
-    const buf = Buffer.from(resBuff)
-
     if (response.ok) {
       res.setHeader('Content-disposition', 'inline; filename="pdflayer.pdf"')
       res.setHeader('Content-Type', 'application/pdf')
@@ -233,6 +189,5 @@ express()
     } else {
       res.json({ created: false })
     }
-
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
