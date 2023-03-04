@@ -144,6 +144,7 @@ express()
     if (req.params.table === 'ability') {
       entData.descrip = ''
       entData.ability = ''
+      entData.table = req.params.table
     } else {
       entData.ability = await queryViewEntry('ability', entData.ability)
       entData.table = req.params.table
@@ -160,15 +161,6 @@ express()
     // Combine request values
     const pdfRequest = `${baseURL}?access_key=${key}&document_url=${docURL}&test=1`
 
-    // Display Values in terminal
-    /*
-    console.log("Base URL: " + baseURL)
-    console.log("Access Key: " + key)
-    console.log("Document URL: " + docURL + "\n")
-    console.log("Example Request: http://api.pdflayer.com/api/convert?access_key=17fac7770f20e102e1728a20df1dbcda&document_url=https://en.wikipedia.org/wiki/Waddesdon_Bequest&test=1")
-    console.log("PDF Request URL: " + pdfRequest)
-    */
-
     // Make the API request
     const response = await fetch(pdfRequest, {
       method: 'POST',
@@ -179,6 +171,7 @@ express()
       body: JSON.stringify({})
     })
     
+    // convert response to a buffer
     const resBuff = await response.arrayBuffer()
     const buf = Buffer.from(resBuff)
     
@@ -186,8 +179,6 @@ express()
       res.setHeader('Content-disposition', 'inline; filename="pdflayer.pdf"')
       res.setHeader('Content-Type', 'application/pdf')
       res.send(buf)
-    } else {
-      res.json({ created: false })
     }
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))

@@ -2,7 +2,7 @@
 
     <main>
       <h2><%= name %></h2>
-      <h3><a href="/toPDF/<%= table %>/<%= id %>">Create PDF dynamic</a></h3>
+      <h3><a href="/toPDF/<%= table %>/<%= id %>">Create PDF</a></h3>
       <span id="bodyImg">
         <img alt="image of <%= name %>">
         <%_ if (ability !== '') { _%>
@@ -18,28 +18,5 @@
         <%_ } _%>
       </span>
     </main>
-    <script>
-      /*
-      const toPDF = async function () {        
-        // Call server side route to keep API key hidden from users
-        const response = await fetch('/toPDF/<%= table %>/<%= id %>', {
-          method: 'POST',
-          header: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({})
-        })
-        if (response.ok) {
-          console.log("Nice!")
-          const result = await response.json()
-          if (!result.created) {
-            console.log("Not good ;-;")
-            return
-          }
-        }
-      }
-      */
-    </script>
   </body>
 </html>
