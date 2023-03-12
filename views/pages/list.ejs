@@ -39,9 +39,7 @@
       const text = search.querySelector('input').value
 
       const url = new URL(`/list/search/${text}`, baseUrl)
-      await fetch(url, {
-        method: 'GET',
-      })
+      window.location.href = url
     }, false)
   </script>
 </body>
