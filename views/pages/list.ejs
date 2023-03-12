@@ -29,6 +29,11 @@
           <li><a href="/view/<%= table %>/<%= entry.id %>"><%= entry.name %></a>: <%= entry.info %></li>
         <%_ } _%>
     </ul>
+    <%_ if (characters.length === 0 && items.length === 0 
+        && abilities.length === 0 && entries.length === 0) { _%>
+          <span style="color: darkred">No results</span>
+    <%_ } _%>
+
   </main>
   <script>
     const baseUrl = 'http://localhost:5163'
