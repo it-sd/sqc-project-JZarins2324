@@ -104,3 +104,7 @@ button {
 h2 a {
     font-size: 26px;
 }
+
+#search-bar button {
+    width: 65px;
+}

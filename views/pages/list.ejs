@@ -2,6 +2,12 @@
 
   <main>
     <h2><a href="/list">List of Entries</a></h2>
+
+    <form id="search-bar">
+      <input type="text" placeholder="Search...">
+      <button type="submit">Submit</button>
+    </form>
+
     <h3 id="cat">Categories:</h3>
       <ul>
         <li><a href="/list/character">Character</a></li>
@@ -24,5 +30,18 @@
         <%_ } _%>
     </ul>
   </main>
+  <script>
+    const search = document.getElementById('search-bar')
+
+    const searchList = function () {
+      console.log('Searching')
+    }
+
+    search.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const text = search.querySelector('input').value
+      searchList(text)
+    }, false)
+  </script>
 </body>
 </html>
