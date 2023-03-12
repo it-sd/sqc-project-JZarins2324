@@ -46,6 +46,19 @@ describe('fantasy bank server', function () {
       expect(results.entries).toBeDefined()
       expect(results.entries.length).toBeGreaterThan(0)
     })
+
+    it('should return a single entry given a search parameter', async function () {
+      const results = await queryAllTypeEntries('ability', 'Knowledge Transfer')
+      expect(results.entries).toBeDefined()
+      expect(results.entries.length).toBe(1)
+    })
+
+    it('should return the same result even if parameter does not match case', async function () {
+      const results1 = await queryAllTypeEntries('ability', 'Knowledge Transfer')
+      const results2 = await queryAllTypeEntries('ability', 'knowledge transfer')
+
+      expect(results1.entries).toEqual(results2.entries)
+    })
   })
 
   describe('queryViewEntry', function () {
