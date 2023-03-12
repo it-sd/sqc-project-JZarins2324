@@ -34,7 +34,12 @@ const queryAllTypeEntries = async function (table, name) {
   let sql = `SELECT * FROM ${table}`
 
   if (name !== undefined && name !== '') {
+    // It is convienent for the user to ignore case when checking results
     name = name.toLowerCase()
+
+    // `LIKE` is used here to check if name contains the search
+    //
+    // If it is preferrable for users to type the entire word, replace `LIKE` with `=`
     sql += ` WHERE LOWER(name) LIKE '%${name}%'`
   }
 
