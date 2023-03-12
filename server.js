@@ -9,9 +9,9 @@ const { Pool } = require('pg')
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  // ssl: {
-  //   rejectUnauthorized: false
-  // }
+  ssl: {
+    rejectUnauthorized: false
+  }
 })
 
 const query = async function (sql, params) {
@@ -34,7 +34,8 @@ const queryAllTypeEntries = async function (table, name) {
   let sql = `SELECT * FROM ${table}`
 
   if (name !== undefined && name !== '') {
-    sql += ` WHERE name = '${name}'`
+    name = name.toLowerCase()
+    sql += ` WHERE LOWER(name) LIKE '%${name}%'`
   }
 
   sql += ';'
