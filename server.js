@@ -30,8 +30,15 @@ const query = async function (sql, params) {
   return results
 }
 
-const queryAllTypeEntries = async function (table) {
-  const sql = `SELECT * FROM ${table};`
+const queryAllTypeEntries = async function (table, name) {
+  let sql = `SELECT * FROM ${table}`
+
+  if (name !== undefined && name !== '') {
+    sql += ` WHERE name = '${name}'`
+  }
+
+  sql += ';'
+
   const results = await query(sql)
   return { entries: results }
 }
@@ -101,6 +108,22 @@ express()
     }
 
     res.render('pages/list', data)
+  })
+  .get('/list/search/:params', async function (req, res) {
+    const params = req.params.params
+    const characters = await queryAllTypeEntries('character', params)
+    const items = await queryAllTypeEntries('item', params)
+    const abilities = await queryAllTypeEntries('ability', params)
+
+    const entries = {
+      characters: characters.entries,
+      items: items.entries,
+      abilities: abilities.entries,
+      entries: [],
+      table: ''
+    }
+
+    res.render('pages/list', entries)
   })
   .get('/create', async function (req, res) {
     const abilities = await queryAllTypeEntries('ability')

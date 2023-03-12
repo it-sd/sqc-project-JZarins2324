@@ -31,16 +31,17 @@
     </ul>
   </main>
   <script>
+    const baseUrl = 'http://localhost:5163'
     const search = document.getElementById('search-bar')
 
-    const searchList = function () {
-      console.log('Searching')
-    }
-
-    search.addEventListener('submit', (e) => {
+    search.addEventListener('submit', async (e) => {
       e.preventDefault()
       const text = search.querySelector('input').value
-      searchList(text)
+
+      const url = new URL(`/list/search/${text}`, baseUrl)
+      await fetch(url, {
+        method: 'GET',
+      })
     }, false)
   </script>
 </body>
