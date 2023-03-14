@@ -1,6 +1,4 @@
 require('dotenv').config()
-const { table } = require('console')
-//import { Buffer } from 'node:buffer'
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5163
@@ -166,13 +164,12 @@ express()
       client.release()
     } catch (err) {
       console.error(err)
-      res.json({error: err})
+      res.json({ error: err })
     }
-
   })
   .get('/view/:table/:id', async function (req, res) {
     const entData = await queryViewEntry(req.params.table, req.params.id)
-    
+
     if (req.params.table === 'ability') {
       entData.descrip = ''
       entData.ability = ''
@@ -198,15 +195,15 @@ express()
       method: 'POST',
       header: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json'
+        Accept: 'application/json'
       },
       body: JSON.stringify({})
     })
-    
+
     // convert response to a buffer
     const resBuff = await response.arrayBuffer()
     const buf = Buffer.from(resBuff)
-    
+
     if (response.ok) {
       res.setHeader('Content-disposition', 'inline; filename="pdflayer.pdf"')
       res.setHeader('Content-Type', 'application/pdf')
