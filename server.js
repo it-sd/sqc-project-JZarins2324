@@ -66,6 +66,9 @@ express()
   .get('/about', function (req, res) {
     res.render('pages/about')
   })
+  .get('/help', function (req, res) {
+    res.render('pages/help')
+  })
   .get('/health', function (req, res) {
     const result = query('SELECT id FROM character;')
     if (result.length === 0) {

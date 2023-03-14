@@ -1,8 +1,13 @@
 body {
-    background: #08F;
+    background: #27B36A;
 }
 
-h1, h2, h3 {
+p {
+    text-overflow: ellipsis;
+    max-width: 600px;
+}
+
+h1, h2, h3, h4 {
     text-align: center;
 }
 
@@ -10,8 +15,16 @@ h1 {
     font-size: 30px;
 }
 
+h2 a {
+    font-size: 26px;
+}
+
 h3 {
     font-size: 23px;
+}
+
+h4 {
+    font-size: 20px;
 }
 
 #cat {
@@ -26,7 +39,6 @@ nav {
 nav > ul > li {
     list-style-type: none;
     text-decoration: none;
-    color: #FDA;
     margin-left: 10px;
     margin-right: 10px;
     display: inline;
@@ -34,8 +46,16 @@ nav > ul > li {
 
 nav > ul > li > a {
     text-decoration: none;
+    color: #B32515;
+    font-size: 25px;
+    /*
+    color: #27B36A;
+    color: #6BFFB2;
+    color: #52FFA4;
+    color: #B32515;
+    color: #FF1B00;
     color: #FDA;
-    font-size: 20px;
+    */
 }
 
 main {
@@ -43,33 +63,45 @@ main {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    background-color: #FDA;
+    background-color: #52FFA4;
     padding: 10px 10px 10px 10px;
     border-radius: 6px;
+    /*
+    color: #27B36A;
+    color: #6BFFB2;
+    color: #52FFA4;
+    color: #B32515;
+    color: #FF1B00;
+    color: #FDA;
+    */
 }
 
 main p, main a, main li {
     font-size: 18px;
+    line-height: 145%;
+    margin: auto;
+    
+}
+
+main p {
+    text-align: center;
 }
 
 main a {
     text-decoration: none;
-    color: blue;
+    color: #B32515;
 }
 
-#info {
-    overflow: auto;
-}
-
-#bodyImg {
-    float: right;
-    display: block;
-    overflow: auto;
-}
-
-a:hover {
+nav a:hover {
     text-decoration: underline;
-    background-color: powderblue;
+    background-color: #52FFA4;
+    padding: 2px 2px 2px 2px;
+}
+
+main a:hover {
+    text-decoration: underline;
+    background-color: #27B36A;
+    color: #FF1B00;
     padding: 2px 2px 2px 2px;
 }
 
@@ -99,8 +131,4 @@ button {
     width: 200px;
     margin-left: auto;
     margin-right: auto;
-}
-
-h2 a {
-    font-size: 26px;
 }
