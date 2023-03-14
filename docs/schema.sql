@@ -30,7 +30,7 @@ CREATE TABLE ability (
 
 INSERT INTO character (name, descrip, info, ability)
   VALUES
-  ('Jacob Zarins', 'Coolest College Student', 'Currently working on his Software Developer Associates Degree', 1);
+  ('Tiredman', 'A tall lanky man. Always tired and wrapped in a blanket.', 'After he was sleep deprived for 3783 years, he awakened super natural powers. He uses his newfound powers to do as little work as possible.', 3);
 
 INSERT INTO item (name, descrip, info, ability)
   VALUES
@@ -38,5 +38,6 @@ INSERT INTO item (name, descrip, info, ability)
 
 INSERT INTO ability (name, info)
   VALUES
-  ('None', 'Nothing special'),
+  ('None', 'Can do nothing special'),
   ('Knowledge Transfer', 'Allows the transfer of knowledge from one source to another');
+  ('Telekinesis', 'Psychic ability allowing a person to influence a physical system without physical interaction.')
