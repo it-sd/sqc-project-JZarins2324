@@ -10,3 +10,4 @@ the information for their own entries.
 Render: [Fantasy Bank](https://fantasy-bank.onrender.com/)
 
 4. Hello from rweld1!
+4. jgreen41 can handle rejection.
